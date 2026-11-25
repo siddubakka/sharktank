@@ -14,6 +14,10 @@ interface AgentPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export function generateStaticParams() {
+  return AGENTS.map((agent) => ({ slug: agent.slug }));
+}
+
 export async function generateMetadata({ params }: AgentPageProps): Promise<Metadata> {
   const { slug } = await params;
   const agent = getAgent(slug);
