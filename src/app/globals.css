@@ -1,0 +1,236 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  AgentKart design language
+  — Paper & Ink: warm bone paper, editorial serif display (Fraunces),
+    grotesque body (Geist). Brand pillars: deep maroon (action) and
+    pine dark green (trust/verification), brass gold used sparingly
+    as the highlight on dark surfaces.
+*/
+:root {
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --background: #f7f3ec;
+  --foreground: #1c1714;
+
+  --card: #fffdf8;
+  --card-foreground: #1c1714;
+  --popover: #fffdf8;
+  --popover-foreground: #1c1714;
+
+  --primary: #6d1a2e;
+  --primary-foreground: #fdf9f2;
+
+  --secondary: #17392e;
+  --secondary-foreground: #f2f6f2;
+
+  --muted: #ece5d9;
+  --muted-foreground: #6b6357;
+
+  --accent: #eee4d6;
+  --accent-foreground: #1c1714;
+
+  --destructive: #a52a1e;
+  --destructive-foreground: #fdf9f2;
+
+  --border: #ddd3c2;
+  --input: #cfc3ae;
+  --ring: #6d1a2e;
+
+  --maroon: #6d1a2e;
+  --maroon-deep: #4e1220;
+  --maroon-soft: #f4e8ea;
+  --pine: #17392e;
+  --pine-deep: #0f241d;
+  --pine-soft: #e5ede8;
+  --gold: #b48a3c;
+  --gold-bright: #d8ab55;
+  --bone: #f7f3ec;
+  --cream: #fffdf8;
+  --ink: #1c1714;
+}
+
+.dark {
+  --background: #0f1512;
+  --foreground: #f3ede3;
+
+  --card: #151c18;
+  --card-foreground: #f3ede3;
+  --popover: #151c18;
+  --popover-foreground: #f3ede3;
+
+  --primary: #9c3149;
+  --primary-foreground: #fdf9f2;
+
+  --secondary: #2c5a49;
+  --secondary-foreground: #f2f6f2;
+
+  --muted: #1e2723;
+  --muted-foreground: #9aa8a0;
+
+  --accent: #212b26;
+  --accent-foreground: #f3ede3;
+
+  --destructive: #c64b3c;
+  --destructive-foreground: #fdf9f2;
+
+  --border: #2a352f;
+  --input: #35423b;
+  --ring: #9c3149;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-maroon: var(--maroon);
+  --color-maroon-deep: var(--maroon-deep);
+  --color-maroon-soft: var(--maroon-soft);
+  --color-pine: var(--pine);
+  --color-pine-deep: var(--pine-deep);
+  --color-pine-soft: var(--pine-soft);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-bone: var(--bone);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-deva: var(--font-deva), var(--font-geist), sans-serif;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--maroon);
+    color: #fdf9f2;
+  }
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+@layer utilities {
+  /* Hairline editorial rules, used across section headers */
+  .rule {
+    border-top: 1px solid var(--border);
+  }
+  /* Paper grain — keeps large flat areas from feeling digital */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ——— Scroll reveal (IntersectionObserver adds .is-visible) ——— */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ——— Verified-agents ticker under the hero ——— */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 42s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ticker-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
